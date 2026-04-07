@@ -1,0 +1,74 @@
+package kr.co.hectofinancial.mps.api.v1.giftcard.bundle.dto.charge;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import kr.co.hectofinancial.mps.global.annotation.DateFormat;
+import kr.co.hectofinancial.mps.global.annotation.EncField;
+import kr.co.hectofinancial.mps.global.annotation.HashField;
+import kr.co.hectofinancial.mps.global.annotation.NotLoggableParam;
+import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+
+@Data
+@Builder(access = AccessLevel.PUBLIC, toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+public class GiftCardBundleChargeEtcRequestDto {
+
+    @HashField(order = 1)
+    @NotBlank(message = "유통관리번호")
+    private String gcDstbNo; // 유통관리번호
+
+    @HashField(order = 2)
+    @NotBlank(message = "사용처 상점 아이디")
+    private String useMid; // 사용처 상점 아이디
+
+    @HashField(order = 3)
+    @NotBlank(message = "상점거래번호")
+    @JsonProperty("mTrdNo")
+    private String mTrdNo; // 상점 거래 번호
+
+    @EncField
+    @HashField(order = 4)
+    @NotBlank(message = "거래금액")
+    private String trdAmt; // 거래금액
+
+    @EncField
+    @HashField(order = 5)
+    @NotBlank(message = "유통잔액")
+    private String dstbBlc; // 유통잔액
+
+    @NotBlank(message = "충전수단코드")
+    @HashField(order = 6)
+    private String chrgMeanCd; // 충전수단코드
+
+    @NotBlank(message = "충전거래번호")
+    @HashField(order = 7)
+    private String chrgTrdNo; // 충전거래번호
+
+    @DateFormat(pattern = "yyyyMMdd", message = "날짜형식은 yyyyMMdd 입니다.")
+    public String reqDt; // 요청일자
+
+    @DateFormat(pattern = "HHmmss", message = "시간형식은 HHmmss 입니다.")
+    public String reqTm; // 요청시간
+
+    private String trdSumry; // 거래적요
+
+    @JsonProperty("mResrvField1")
+    private String mResrvField1; // 예비필드1
+
+    @JsonProperty("mResrvField2")
+    private String mResrvField2; // 예비필드2
+
+    @JsonProperty("mResrvField3")
+    private String mResrvField3; // 예비필드3
+
+    @NotBlank(message = "해시데이터")
+    private String pktHash; // 해시데이터
+
+    @NotLoggableParam
+    private String clientIp;//TMS 로그 내 필요값 (요청 IP)
+
+    @NotLoggableParam
+    private long requestStartTime;//TMS 로그 내 필요값 (소요시간 계산용)
+}
